@@ -61,4 +61,23 @@ public class vehiculosController:ControllerBase
 
         
     }
+    [HttpPost("/altaVehiculo")]
+    [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles ="Gestion")]
+    public async Task<IActionResult> altaVehiculo(string Placa)
+    {
+        try
+        {
+            var vehiculo = dbD.Vehiculos.Where(v=>v.PlacaVehiculo==Placa).FirstOrDefault();
+            if(vehiculo is null)
+                throw new Exception($"Vehiculo de placa {Placa} no esta registrado");
+            vehiculo.EstatusVehiculo="ALTA";
+            await dbD.SaveChangesAsync();
+            return Ok("Vehiculo dado de alta");
+
+        }
+        catch(Exception ex)
+        {
+            return BadRequest(ex.InnerException is null? ex.Message:ex.InnerException.Message);
+        }
+    }
 }

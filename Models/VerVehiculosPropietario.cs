@@ -20,4 +20,6 @@ public partial class VerVehiculosPropietario
     public string? Rfc { get; set; }
 
     public string Correo { get; set; } = null!;
+
+    public string Estatus { get; set; } = null!;
 }

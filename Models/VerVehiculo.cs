@@ -14,4 +14,6 @@ public partial class VerVehiculo
     public string NumeroSerie { get; set; } = null!;
 
     public string Propietario { get; set; } = null!;
+
+    public string Estatus { get; set; } = null!;
 }

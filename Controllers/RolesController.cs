@@ -30,7 +30,7 @@ public class RoleController:ControllerBase
             var resultado = await roleManager.CreateAsync(new IdentityRole(nombreRol));
             
             if (resultado.Succeeded)
-                return Ok(new { mensaje = $"Rol '{nombreRol}' creado exitosamente." });
+                return Ok("mensaje = $\"Rol '{nombreRol}' creado exitosamente.\" ");
                 
             return BadRequest(resultado.Errors);
         

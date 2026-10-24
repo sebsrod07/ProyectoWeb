@@ -35,15 +35,12 @@ public class pruebasController:ControllerBase
                 a=>a.Curp
             ).FirstOrDefaultAsync();
             Console.WriteLine($"CURP: {CURP}");
-            var misVehiculos=await dbD.VerVehiculosPropietarios.Where(V=>V.Curp==CURP).ToListAsync();
+            var misVehiculos=await dbD.VerVehiculosPropietarios.Where(V=>V.Curp==CURP && V.Estatus=="ALTA").ToListAsync();
             return Ok(misVehiculos);
         }
         catch (Exception ex)
         {
-            string msj=ex.Message;
-            msj=ex.InnerException!=null?ex.InnerException.Message:ex.Message;
-            return BadRequest(msj);
-            
+            return BadRequest(ex.InnerException!=null?ex.InnerException.Message:ex.Message);
         }
     }
 }
