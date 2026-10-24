@@ -33,7 +33,15 @@ public class LoginController:ControllerBase
             if(!respone.Succeeded)
                 return Unauthorized("Contraseña incorrecta");
             var token=await jwtService.createJwt(user);
-            return Ok(token);
+            var CookieOption=new CookieOptions
+            {
+                HttpOnly=true,
+                Secure=false,
+                SameSite=SameSiteMode.Strict,
+                Expires=DateTime.UtcNow.AddHours(1)
+            };
+            Response.Cookies.Append("jwtToken",token,CookieOption);
+            return Ok();
         }
         catch(Exception ex)
         {

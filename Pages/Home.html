@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mis Vehículos - Inicio</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .vehiculos-grid { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+    .vehiculo-card { 
+      border: 1px solid #ccc; 
+      border-radius: 8px; 
+      padding: 15px; 
+      width: 250px;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .placa { font-size: 1.2em; font-weight: bold; color: #333; }
+    .btn-salir { margin-bottom: 20px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <button class="btn-salir" id="btnCerrarSesion">Cerrar Sesión</button>
+  
+  <h1>Mis Vehículos Registrados</h1>
+  <p id="estadoCarga">Cargando vehículos...</p>
+  
+  <div id="contenedorVehiculos" class="vehiculos-grid"></div>
+
+  <script>
+    // 1. Ejecutar la carga en cuanto el HTML esté listo
+    document.addEventListener("DOMContentLoaded", cargarVehiculos);
+
+    // 2. Lógica de cierre de sesión (Actualizada para cookies)
+    document.getElementById("btnCerrarSesion").addEventListener("click", async () => {
+      try {
+        // Le pedimos al servidor que borre la cookie HttpOnly
+        await fetch("/api/logout", { 
+          method: "POST",
+          credentials: "include" 
+        });
+      } catch (err) {
+        console.error("Error cerrando sesión en el servidor:", err);
+      } finally {
+        // Siempre redirigimos al login, incluso si falla la red
+        window.location.href = "login.html";
+      }
+    });
+
+    // 3. Función principal para obtener y dibujar los datos
+    async function cargarVehiculos() {
+      const contenedor = document.getElementById("contenedorVehiculos");
+      const estado = document.getElementById("estadoCarga");
+
+      try {
+        const res = await fetch("/prueba1", {
+          method: "GET",
+          credentials: "include", // OBLIGATORIO: Le dice al navegador que envíe tu cookie
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+
+        // Si el token no existe, expiró o es inválido, .NET devolverá 401
+        if (res.status === 401) {
+          alert("Tu sesión ha expirado o no estás autorizado. Por favor, inicia sesión de nuevo.");
+          window.location.href = "login.html";
+          return;
+        }
+
+        if (!res.ok) {
+          throw new Error("Error en el servidor al obtener los vehículos");
+        }
+
+        const vehiculos = await res.json();
+        
+        estado.style.display = "none"; // Ocultar mensaje de carga
+
+        if (vehiculos.length === 0) {
+          contenedor.innerHTML = "<p>No tienes vehículos registrados actualmente.</p>";
+          return;
+        }
+
+        // Dibujar cada vehículo en el HTML
+        vehiculos.forEach(vehiculo => {
+          const card = document.createElement("div");
+          card.className = "vehiculo-card";
+          
+          card.innerHTML = `
+            <div class="placa">${vehiculo.placas}</div>
+            <p><strong>Descripción:</strong> ${vehiculo.descripcion}</p>
+            <p><strong>Tipo:</strong> ${vehiculo.tipo}</p>
+            <p><strong>No. Serie:</strong> ${vehiculo.numeroSerie}</p>
+            <hr>
+            <p><small>Propietario: ${vehiculo.nombreCompleto}</small></p>
+          `;
+          
+          contenedor.appendChild(card);
+        });
+
+      } catch (err) {
+        estado.textContent = "Error de conexión: " + err.message;
+      }
+    }
+  </script>
+</body>
+</html>

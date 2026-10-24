@@ -27,15 +27,6 @@
   <script>
     const TOKEN_KEY = "jwtToken";
 
-    function authHeaders(extraHeaders) {
-      const token = localStorage.getItem(TOKEN_KEY);
-      const headers = { ...(extraHeaders || {}) };
-      if (token) {
-        headers.Authorization = "Bearer " + token;
-      }
-      return headers;
-    }
-
     document.getElementById("loginForm").addEventListener("submit", async function (e) {
       e.preventDefault();
       const mensaje = document.getElementById("mensaje");
@@ -61,13 +52,12 @@
           token = JSON.parse(token);
         }
         localStorage.setItem(TOKEN_KEY, token);
-        mensaje.textContent = "Sesión iniciada. Token guardado para el header Authorization.";
+        window.location.href="/Pages/Home.html"
       } catch (err) {
         mensaje.textContent = "Error de red: " + err.message;
       }
     });
-
-    window.authHeaders = authHeaders;
+    
   </script>
 </body>
 </html>

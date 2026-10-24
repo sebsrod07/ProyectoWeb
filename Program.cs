@@ -35,6 +35,17 @@ builder.Services
             ValidAudience = builder.Configuration["jwt:audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwt:secretKey"]))
         };
+        options.Events=new JwtBearerEvents
+        {
+            OnMessageReceived = context=>
+            {
+                if(context.Request.Cookies.ContainsKey("jwtToken"))
+                {
+                    context.Token=context.Request.Cookies["jwtToken"];
+                }
+                return Task.CompletedTask;
+            }
+        };
     });
 
 builder.Services.AddAuthorization(options =>

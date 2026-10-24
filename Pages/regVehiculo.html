@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar Vehículo</title>
+</head>
+<body>
+  <h1>Registrar Nuevo Vehículo</h1>
+  
+  <form id="formVehiculo">
+    <p>
+      <label for="PlacaVehiculo">Placa:</label><br>
+      <input type="text" id="PlacaVehiculo" name="PlacaVehiculo" required>
+    </p>
+    <p>
+      <label for="ColorVehiculo">Color:</label><br>
+      <input type="text" id="ColorVehiculo" name="ColorVehiculo" required>
+    </p>
+    <p>
+      <label for="ModeloVehiculo">Modelo:</label><br>
+      <input type="text" id="ModeloVehiculo" name="ModeloVehiculo" required>
+    </p>
+    <p>
+      <label for="FabricanteVehiculo">Fabricante (Marca):</label><br>
+      <input type="text" id="FabricanteVehiculo" name="FabricanteVehiculo" required>
+    </p>
+    <p>
+      <label for="TipoVehiculo">Tipo de Vehículo:</label><br>
+      <input type="text" id="TipoVehiculo" name="TipoVehiculo" required>
+    </p>
+    <p>
+      <label for="NumeroSerieVehiculo">Número de Serie (VIN):</label><br>
+      <input type="text" id="NumeroSerieVehiculo" name="NumeroSerieVehiculo" required>
+    </p>
+    <p>
+      <button type="submit">Guardar Vehículo</button>
+    </p>
+  </form>
+
+  <p id="mensaje"></p>
+
+  <script>
+    document.getElementById("formVehiculo").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const mensaje = document.getElementById("mensaje");
+      mensaje.textContent = "Procesando...";
+
+      // Extrae automáticamente todos los inputs usando el atributo 'name'
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const res = await fetch("/solicitarRegistro", {
+          method: "POST",
+          credentials: "include", // Obligatorio para enviar la cookie JWT
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+        if (res.status === 401) {
+          mensaje.textContent = "Error: Sesión expirada. Vuelve a iniciar sesión.";
+          return;
+        }
+
+        if (!res.ok) {
+          const errText = await res.text();
+          mensaje.textContent = "Error al guardar: " + errText;
+          return;
+        }
+
+        mensaje.textContent = "¡Vehículo registrado correctamente!";
+        e.target.reset(); 
+
+      } catch (err) {
+        mensaje.textContent = "Error de red: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
