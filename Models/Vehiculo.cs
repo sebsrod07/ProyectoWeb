@@ -19,5 +19,7 @@ public partial class Vehiculo
 
     public string NumeroSerieVehiculo { get; set; } = null!;
 
+    public string EstatusVehiculo { get; set; }
+
     public virtual Propietario CurppropietarioVehiculoNavigation { get; set; } = null!;
 }

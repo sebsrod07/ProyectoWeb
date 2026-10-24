@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Models;
+
 namespace Contextos;
 
 public partial class DbProyectoWebContext : DbContext
@@ -28,7 +29,6 @@ public partial class DbProyectoWebContext : DbContext
     public virtual DbSet<VerVehiculo> VerVehiculos { get; set; }
 
     public virtual DbSet<VerVehiculosPropietario> VerVehiculosPropietarios { get; set; }
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -103,6 +103,12 @@ public partial class DbProyectoWebContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("CURPPropietario_Vehiculo");
+            entity.Property(e => e.EstatusVehiculo)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasDefaultValue("BAJA", "DEFAULT_Vehiculos_estatus")
+                .HasColumnName("Estatus_Vehiculo");
             entity.Property(e => e.FabricanteVehiculo)
                 .HasMaxLength(20)
                 .IsUnicode(false)

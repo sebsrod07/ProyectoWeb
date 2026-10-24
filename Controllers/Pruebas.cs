@@ -34,7 +34,8 @@ public class pruebasController:ControllerBase
             ).Select(
                 a=>a.Curp
             ).FirstOrDefaultAsync();
-            var misVehiculos=dbD.VerVehiculosPropietarios.Where(V=>V.Curp==CURP).ToList();
+            Console.WriteLine($"CURP: {CURP}");
+            var misVehiculos=await dbD.VerVehiculosPropietarios.Where(V=>V.Curp==CURP).ToListAsync();
             return Ok(misVehiculos);
         }
         catch (Exception ex)
