@@ -27,7 +27,6 @@
   <script>
     const TOKEN_KEY = "jwtToken";
 
-    /** Headers con Bearer token para fetch autenticados */
     function authHeaders(extraHeaders) {
       const token = localStorage.getItem(TOKEN_KEY);
       const headers = { ...(extraHeaders || {}) };
@@ -44,7 +43,6 @@
 
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
-
       try {
         const res = await fetch("/api/login", {
           method: "POST",
