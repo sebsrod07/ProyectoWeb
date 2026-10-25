@@ -21,17 +21,26 @@ public class registroController:ControllerBase
 
     }
     [HttpPost("/api/register")]
-    public async Task<IActionResult> register([FromBody] AccountDTO registro)
+    public async Task<IActionResult> register([FromBody] RegistroDTO registro)
     {
         try
         {
 
             var nuevoId = Guid.NewGuid().ToString();
-            var usuarioTemp = new IdentityUser { Id = nuevoId, UserName = registro.Email, Email = registro.Email };
-            var passwordHash = userManager.PasswordHasher.HashPassword(usuarioTemp, registro.Password);
-            await db.Database.ExecuteSqlInterpolatedAsync(
-                $"Exec dbo.crearUsuario {nuevoId}, {registro.Email}, {passwordHash}"
-            );
+            var usuarioTemp = new IdentityUser { Id = nuevoId, UserName = registro.email, Email = registro.email };
+            var passwordHash = userManager.PasswordHasher.HashPassword(usuarioTemp, registro.password);
+            await db.Database.ExecuteSqlInterpolatedAsync($@"
+                EXEC dbo.crearUsuario 
+                    @id = {nuevoId}, 
+                    @mail = {registro.email}, 
+                    @hashpass = {passwordHash},
+                    @curp = {registro.curp},
+                    @pNombre = {registro.primerNombre},
+                    @sNombre = {registro.segundoNombre},
+                    @pApellido = {registro.APaterno},
+                    @mApellido = {registro.AMaterno},
+                    @rfc = {registro.rfc}
+            ");
             return Ok("Usuario Creado Correctamente");
         }
         catch(Exception ex)

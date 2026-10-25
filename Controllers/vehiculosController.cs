@@ -37,17 +37,16 @@ public class vehiculosController:ControllerBase
             ).FirstOrDefaultAsync();
             if(string.IsNullOrEmpty(CURP))
                 throw new Exception("EL CURP NO EXISTE");
-            var VS = new Vehiculo
-                {
-                CurppropietarioVehiculo=CURP,
-                PlacaVehiculo=V.PlacaVehiculo,
-                ColorVehiculo=V.ColorVehiculo,
-                ModeloVehiculo=V.ModeloVehiculo,
-                FabricanteVehiculo=V.FabricanteVehiculo,
-                TipoVehiculo=V.TipoVehiculo,
-                NumeroSerieVehiculo=V.NumeroSerieVehiculo
-            };
-            dbD.Vehiculos.Add(VS);
+            await dbD.Database.ExecuteSqlInterpolatedAsync( 
+                @$"EXEC ingresarSolicitudVehiculo
+                    {V.PlacaVehiculo},
+                    {V.ColorVehiculo},
+                    {V.ModeloVehiculo},
+                    {V.FabricanteVehiculo},
+                    {CURP},
+                    {V.TipoVehiculo},
+                    {V.NumeroSerieVehiculo};"
+            );
             await dbD.SaveChangesAsync();
             return Ok();
         }
