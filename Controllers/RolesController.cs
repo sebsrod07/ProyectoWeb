@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using DTOs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 [ApiController]
 [Route("/api/[controller]")]
 public class RoleController:ControllerBase
@@ -16,6 +18,7 @@ public class RoleController:ControllerBase
         this.roleManager=roleManager;
     }
     [HttpPost("/createRole")]
+    [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles ="Admin")]
     public async Task<IActionResult> createRole(string nombreRol)
     {
         if (string.IsNullOrWhiteSpace(nombreRol))
@@ -36,7 +39,8 @@ public class RoleController:ControllerBase
         
     }
     [HttpPost("/addToRole")]
-    public async Task<IActionResult> addToRole(RoleAccountDTO account)
+    [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme, Roles ="Admin")]
+    public async Task<IActionResult> addToRole([FromBody]RoleAccountDTO account)
     {
         try
         {

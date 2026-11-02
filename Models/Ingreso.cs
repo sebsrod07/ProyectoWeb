@@ -8,7 +8,7 @@ public partial class Ingreso
     /// <summary>
     /// Fecha
     /// </summary>
-    public DateTime FechaSalida { get; set; }
+    public DateOnly FechaSalida { get; set; }
 
     /// <summary>
     /// Mail del usuario que salio con el vehiculo
@@ -18,7 +18,7 @@ public partial class Ingreso
     /// <summary>
     /// Placas del vehiculo de salida
     /// </summary>
-    public int PlacasVehiculo { get; set; }
+    public string PlacasVehiculo { get; set; } = null!;
 
     /// <summary>
     /// hora de salida del vehiculo

@@ -39,7 +39,8 @@ public partial class DbProyectoWebContext : DbContext
             entity.Property(e => e.IdSalida).HasColumnName("idSalida");
             entity.Property(e => e.FechaSalida)
                 .HasComment("Fecha")
-                .HasColumnType("datetime")
+                .HasColumnType("date")
+                .HasDefaultValueSql("(CONVERT([date],getdate()))", "DEFAULT_Ingresos_fechaSalida")
                 .HasColumnName("fechaSalida");
             entity.Property(e => e.HoraSalida)
                 .HasComment("hora de salida del vehiculo")

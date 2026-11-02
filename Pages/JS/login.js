@@ -30,3 +30,7 @@ const TOKEN_KEY = "jwtToken";
         mensaje.textContent = "Error de red: " + err.message;
       }
     });
+    function redirectCreateAccount()
+    {
+      window.location.replace("SignIn.html");
+    }

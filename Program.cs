@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddScoped<JwtService>();
+builder.Services.AddDataProtection();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

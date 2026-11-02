@@ -44,3 +44,7 @@ document.getElementById("Registro").addEventListener("submit", async function (e
         mensaje.textContent = "Error de red: " + err.message;
     }
 });
+function redirectLogin()
+{
+    window.location.replace("login.html");
+}

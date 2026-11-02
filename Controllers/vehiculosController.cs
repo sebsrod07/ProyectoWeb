@@ -10,13 +10,11 @@ using Microsoft.EntityFrameworkCore;
 [Route("/api/[controller]")]
 public class vehiculosController:ControllerBase
 {
-      private readonly ApplicationDbContext db;
     private readonly DbProyectoWebContext dbD;
     protected readonly IConfiguration config;
 
-    public vehiculosController(ApplicationDbContext _db, DbProyectoWebContext _dbd, IConfiguration _config )
+    public vehiculosController( DbProyectoWebContext _dbd, IConfiguration _config )
     {
-        db=_db;
         dbD=_dbd;
         config=_config;
         
