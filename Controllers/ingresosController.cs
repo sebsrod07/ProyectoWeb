@@ -64,7 +64,7 @@ public class ingresosController:ControllerBase
             if ((DateTime.UtcNow - fechaGeneracion).TotalMinutes > 15)
             {
                 return BadRequest("El código de acceso ha expirado. Genere uno nuevo.");
-            }            
+            }          
             return Ok("Access Granted");
         }   
         catch (System.Security.Cryptography.CryptographicException)
