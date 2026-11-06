@@ -21,23 +21,7 @@ public class ingresosController:ControllerBase
         config=_config;   
         _protector=DP.CreateProtector("QRAccesoVehicular");
     }
-    [HttpPost("/ingresos/registrarIngreso")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="Admin")]
-    public async Task<IActionResult> registrarIngreso(string placa, string mail)
-    {
-        try
-        {
-            await dbD.Database.ExecuteSqlInterpolatedAsync(@$"
-            EXEC crearIngreso @placa = {placa},
-            @mailConductor={mail}");
-            await dbD.SaveChangesAsync();
-            return Ok("Ingreso creado");
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.InnerException is null? ex.Message: ex.InnerException.Message);
-        }
-    }
+    
     [HttpGet("/generar-acceso")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="usuario")] // Cualquier usuario autenticado puede pedir su propio pase
     public async Task<IActionResult> GenerarCodigoAcceso(string placa)
@@ -51,8 +35,8 @@ public class ingresosController:ControllerBase
         return Ok(new { codigoSeguro = codigoEncriptado });
     }
     [HttpPost("/validar-acceso")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="usuario")] // ESTO ES VITAL: Solo el rol de seguridad tiene acceso
-    public IActionResult ValidarAcceso([FromBody] string codigoEscaneado)
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="Admin")] // ESTO ES VITAL: Solo el rol de seguridad tiene acceso
+    public async Task<IActionResult> ValidarAcceso([FromBody] string codigoEscaneado)
     {
         try
         {
@@ -64,8 +48,12 @@ public class ingresosController:ControllerBase
             if ((DateTime.UtcNow - fechaGeneracion).TotalMinutes > 15)
             {
                 return BadRequest("El código de acceso ha expirado. Genere uno nuevo.");
-            }          
-            return Ok("Access Granted");
+            }
+            await dbD.Database.ExecuteSqlInterpolatedAsync(@$"
+            EXEC crearIngreso @placa = {placa},
+            @mailConductor={propietario}");
+            await dbD.SaveChangesAsync();
+            return Ok("Acceso Creado Correctamente");
         }   
         catch (System.Security.Cryptography.CryptographicException)
         {
