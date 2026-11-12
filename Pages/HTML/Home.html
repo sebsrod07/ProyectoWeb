@@ -1,19 +1,36 @@
-  <!DOCTYPE html>
-  <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mis Vehículos - Inicio</title>
-    <link rel="stylesheet" href="../CSS/home.css"/>
-      
-  </head>
-  <body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"> <!-- ESTO ARREGLA LOS CARACTERES RAROS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Vehículos</title>
+    <!-- ESTO ARREGLA EL DISEÑO (Verifica que la ruta sea correcta) -->
+    <link rel="stylesheet" href="../CSS/home.css"> 
+</head>
+<body>
     <button class="btn-salir" id="btnCerrarSesion">Cerrar Sesión</button>
-    
-    <h1>Mis Vehículos Registrados</h1>
-    <p id="estadoCarga">Cargando vehículos...</p>
-    
-    <div id="contenedorVehiculos" class="vehiculos-grid"></div>
+
+    <!-- Contenedor Flexbox -->
+    <div class="layout-principal">
+        
+        <!-- Columna Izquierda -->
+        <div class="contenido-principal">
+            <h1>Mis Vehículos Registrados</h1>
+            <p id="estadoCarga">Cargando vehículos...</p>
+            <div id="contenedorVehiculos" class="vehiculos-grid"></div>
+        </div>
+
+        <!-- Columna Derecha (Sidebar) -->
+        <aside class="sidebar-derecho">
+            <h2>Otras Opciones</h2>
+            <div class="sidebar-item"><p>👤 Mi Perfil</p></div>
+            <div class="sidebar-item"><p>🔔 Notificaciones</p></div>
+            <div class="sidebar-item"><p>⚙️ Configuración</p></div>
+        </aside>
+
+    </div>
+
+    <!-- Script siempre al final del body -->
     <script src="../JS/Home.js"></script>
-  </body>
-  </html>
+</body>
+</html>

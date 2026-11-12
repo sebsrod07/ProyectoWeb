@@ -1,7 +1,8 @@
 /* Reseteo básico y fondo */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #003366;
+    background : #020024;
+    background: linear-gradient(135deg,rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
     display: flex;
     justify-content: center;
     align-items: center;

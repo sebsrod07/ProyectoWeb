@@ -1,10 +1,16 @@
-body
-{
+body {
     font-family: Arial, sans-serif; 
-    padding: 20px;
+    margin: 0; /* Obligatorio: quita el margen por defecto del navegador */
+    /* PADDING ELIMINADO AQUÍ */
+    background: #020024;
+    background: linear-gradient(135deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
 }
 .vehiculo-card
 {
+    background-color: white;
     border: 1px solid #ccc; 
       border-radius: 8px; 
       padding: 15px; 
@@ -24,5 +30,58 @@ body
 }
 .vehiculos-grid
 {
+    
     display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;
+}
+/* 1. Limpiamos el body para que no haya espacios en blanco en las orillas */
+/* 2. El contenedor ahora ocupa toda la pantalla */
+.layout-principal {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* 3. Le devolvemos el padding de 20px solo a la parte de los vehículos */
+.contenido-principal {
+    flex: 1; 
+    padding: 20px; 
+}
+
+/* 4. Estructura del Sidebar tipo Opera */
+.sidebar-derecho {
+    width: 250px; /* Ajusta qué tan ancho lo quieres */
+    background-color: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(10px); 
+    border-left: 1px solid rgba(255, 255, 255, 0.2); /* Borde solo del lado izquierdo */
+    padding: 20px;
+    color: white;
+    
+    /* MAGIA DEL SIDEBAR: */
+    position: sticky; /* Hace que te siga si haces scroll hacia abajo */
+    top: 0;
+    height: 100vh; /* Obliga a que toque de arriba hasta abajo */
+    box-sizing: border-box; /* Evita que el padding sume altura extra y genere scroll */
+    
+    /* Quitamos los bordes redondeados para que se fusione con la orilla de la pantalla */
+    border-radius: 0; 
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.3); /* Sombra proyectada hacia la izquierda */
+}
+
+/* (Opcional) Si quieres que los botones del sidebar se vean como iconos estilo Opera */
+.sidebar-item {
+    background-color: transparent; /* Fondo invisible por defecto */
+    color: white;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-item:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Se ilumina al pasar el mouse */
+    transform: translateX(-3px);
 }
