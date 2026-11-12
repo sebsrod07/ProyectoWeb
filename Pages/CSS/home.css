@@ -85,3 +85,33 @@ body {
     background-color: rgba(255, 255, 255, 0.2); /* Se ilumina al pasar el mouse */
     transform: translateX(-3px);
 }
+.validador-container {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: #f9f9f9;
+    }
+    .input-codigo {
+      width: 100%;
+      height: 100px; /* Alto para que quepa el código enorme */
+      margin-bottom: 15px;
+      padding: 10px;
+      font-size: 0.9em;
+      box-sizing: border-box;
+    }
+    .btn-validar {
+      width: 100%;
+      padding: 12px;
+      background-color: #2878a7;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+    .btn-validar:hover { background-color: #218838; }
+    #resultadoValidacion { margin-top: 20px; font-weight: bold; text-align: center; }
+    .info-vehiculo { font-size: 1.2em; margin-top: 10px; color: #333; }

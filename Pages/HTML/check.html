@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seguridad - Validar Acceso</title>
+  <!-- Puedes enlazar tu CSS existente aquí -->
+  <link rel="stylesheet" href="../CSS/home.css" />
+  
+</head>
+<body>
+  <!-- Botón de cerrar sesión para el guardia -->
+  <button class="btn-salir" id="btnCerrarSesion">Cerrar Sesión</button>
+  
+  <h1 style="text-align: center; color:whitesmoke">Control de Acceso Vehicular</h1>
+  
+  <div class="validador-container">
+    <p>Pegue el código de acceso o use el escáner QR:</p>
+    
+    <textarea id="inputCodigo" class="input-codigo" placeholder="Ej: CfDJ8B..."></textarea>
+    
+    <button id="btnValidar" class="btn-validar">Validar Acceso</button>
+    
+    <div id="resultadoValidacion"></div>
+    <div id="infoVehiculo" class="info-vehiculo"></div>
+  </div>
+
+  <script src="../JS/Check.js"></script>
+</body>
+</html>
