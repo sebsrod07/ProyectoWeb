@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", cargarVehiculos);
 // 2. Lógica de cierre de sesión (Actualizada para cookies)
 document.getElementById("btnCerrarSesion").addEventListener("click", async () => {
     try {
-        // Le pedimos al servidor que borre la cookie HttpOnly
         await fetch("/api/logout", { 
             method: "POST",
             credentials: "include" 
@@ -11,7 +10,6 @@ document.getElementById("btnCerrarSesion").addEventListener("click", async () =>
     } catch (err) {
         console.error("Error cerrando sesión en el servidor:", err);
     } finally {
-        // Siempre redirigimos al login, incluso si falla la red
         window.location.href = "login.html";
     }
 });
@@ -30,7 +28,6 @@ async function cargarVehiculos() {
             }
         });
 
-        // Si el token no existe, expiró o es inválido, .NET devolverá 401
         if (res.status === 401) {
             alert("Tu sesión ha expirado o no estás autorizado. Por favor, inicia sesión de nuevo.");
             window.location.href = "login.html";
@@ -43,19 +40,17 @@ async function cargarVehiculos() {
 
         const vehiculos = await res.json();
         
-        estado.style.display = "none"; // Ocultar mensaje de carga
+        estado.style.display = "none"; 
 
         if (vehiculos.length === 0) {
             contenedor.innerHTML = "<p>No tienes vehículos registrados actualmente.</p>";
             return;
         }
 
-        // Dibujar cada vehículo en el HTML
         vehiculos.forEach(vehiculo => {
             const card = document.createElement("div");
             card.className = "vehiculo-card";
             
-            // Usamos clases en lugar de IDs para no tener elementos duplicados
             card.innerHTML = `
                 <div class="placa">${vehiculo.placas}</div>
                 <p><strong>Descripción:</strong> ${vehiculo.descripcion}</p>
@@ -68,20 +63,15 @@ async function cargarVehiculos() {
                 <div class="codigo-salida"></div>
             `;
             
-            // Buscamos los elementos SOLO dentro de esta tarjeta
             const btnSolicitar = card.querySelector(".btn-solicitar");
             const divSalida = card.querySelector(".codigo-salida");
             const statusSalida = card.querySelector(".status-salida");
 
-            // Le asignamos el evento de clic específicamente a este botón
             btnSolicitar.addEventListener("click", async () => {
                 statusSalida.textContent = "Enviando Solicitud...";
                 divSalida.innerHTML = ""; // Limpiamos si había un código anterior
                 
                 try {
-                    // Usamos la placa dinámica del vehículo actual en la URL
-                    // Nota: Si en tu C# configuraste la ruta como /generar-acceso/{placa}, usa esto.
-                    // Si decidiste dejarlo con querystring, cámbialo a: /generar-acceso?placa=${vehiculo.placas}
                     const peticionRes = await fetch(`/generar-acceso?placa=${vehiculo.placas}`, {
                         method: "GET",
                         credentials: "include",
@@ -101,7 +91,6 @@ async function cargarVehiculos() {
                     statusSalida.textContent = "¡Código generado correctamente!";
                     statusSalida.style.color = "green";
                     
-                    // Mostramos el código
                     divSalida.innerHTML = `<p style="word-wrap: break-word; font-size: 0.9em; background: #f4f4f4; padding: 10px; border-radius: 5px;">${data.codigoSeguro}</p>`;
                     
                 } catch(err) {
@@ -110,7 +99,6 @@ async function cargarVehiculos() {
                 }
             });
             
-            // Agregamos la tarjeta terminada al contenedor
             contenedor.appendChild(card);
         });
         
