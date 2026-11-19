@@ -19,35 +19,54 @@ public class LoginController:ControllerBase
         this.signInManager=signInManager;
         this.jwtService=jwtService;
     }
-    [HttpPost("/api/login")]
+        [HttpPost("/api/login")]
     public async Task<IActionResult> loginJwt([FromBody] AccountDTO account)
     {
         try
         {
-            Console.WriteLine(account.Email);
-            var user=await userManager.FindByEmailAsync(account.Email);
-            if(user is null)
-                return Unauthorized("Invalid Credentials");
+            var user = await userManager.FindByEmailAsync(account.Email);
+            if (user is null)
+                return Unauthorized("Credenciales inválidas.");
             
-            var respone=await signInManager.CheckPasswordSignInAsync(user, account.Password,lockoutOnFailure: false);
-            if(!respone.Succeeded)
-                return Unauthorized("Contraseña incorrecta");
-            var token=await jwtService.createJwt(user);
-            var CookieOption=new CookieOptions
-            {
-                HttpOnly=true,
-                Secure=false,
-                SameSite=SameSiteMode.Strict,
-                Expires=DateTime.UtcNow.AddHours(1)
-            };
-            Response.Cookies.Append("jwtToken",token,CookieOption);
-            return Ok();
-        }
-        catch(Exception ex)
-        {
-            var msj=ex.Message;
-            return BadRequest(msj);
-        }
+            var response = await signInManager.CheckPasswordSignInAsync(user, account.Password, lockoutOnFailure: false);
+            if (!response.Succeeded)
+                return Unauthorized("Contraseña incorrecta.");
 
+            var token = await jwtService.createJwt(user);
+            var cookieOption = new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = false,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.UtcNow.AddHours(1)
+            };
+            Response.Cookies.Append("jwtToken", token, cookieOption);
+
+            // 1. Obtenemos los roles del usuario desde ASP.NET Identity
+            var roles = await userManager.GetRolesAsync(user);
+
+            // 2. Evaluamos por jerarquía qué vista le corresponde
+            string rutaDestino = "/Pages/HTML/Home.html"; // Usuario estándar por defecto
+
+            if (roles.Contains("Admin"))
+            {
+                rutaDestino = "/Pages/HTML/HomeAdmin.html";
+            }
+            else if (roles.Contains("Gestion"))
+            {
+                rutaDestino = "/Pages/HTML/HomeGestion.html";
+            }
+            else if (roles.Contains("Seguridad"))
+            {
+                rutaDestino = "/Pages/HTML/check.html";
+            }
+
+            // 3. Devolvemos la ruta en formato JSON
+            return Ok(new { ruta = rutaDestino });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

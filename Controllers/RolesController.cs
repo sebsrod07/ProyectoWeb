@@ -24,12 +24,10 @@ public class RoleController:ControllerBase
         if (string.IsNullOrWhiteSpace(nombreRol))
                 return BadRequest("El nombre del rol es obligatorio.");
 
-            // Verificamos si el rol ya existe
             var rolExiste = await roleManager.RoleExistsAsync(nombreRol);
             if (rolExiste)
                 return BadRequest($"El rol '{nombreRol}' ya existe.");
 
-            // Creamos el rol
             var resultado = await roleManager.CreateAsync(new IdentityRole(nombreRol));
             
             if (resultado.Succeeded)

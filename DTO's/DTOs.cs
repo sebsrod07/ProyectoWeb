@@ -12,7 +12,7 @@ public class RegistroDTO
 {
     [Required]
     public string primerNombre { get; set; } =null!;
-    public string segundoNombre { get; set; } 
+    public string? segundoNombre { get; set; } 
     [Required]
     public string APaterno { get; set; }=null!;
     [Required]
@@ -23,7 +23,7 @@ public class RegistroDTO
     public string password { get; set; }=null!;
     [Required]
     public string curp {get;set;} =null!;
-    public string rfc {get;set;}
+    public string? rfc {get;set;}
 }
 public class RoleAccountDTO
 {

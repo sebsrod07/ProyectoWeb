@@ -6,17 +6,18 @@ document.getElementById("Registro").addEventListener("submit", async function (e
 
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-
-    // 1. Separamos el texto usando el espacio como divisor
+    Object.keys(data).forEach(key => {
+          if (typeof data[key] === "string") {
+              data[key] = data[key].trim().toUpperCase();
+          }
+    });
+    
     const nombresArray = data.nombres.trim().split(" ");
     
-    // 2. El primer elemento es el Primer Nombre
     data.primerNombre = nombresArray[0];
     
-    // 3. Si hay más palabras, las unimos de nuevo para el Segundo Nombre, si no, lo mandamos vacío
     data.segundoNombre = nombresArray.length > 1 ? nombresArray.slice(1).join(" ") : null;
     
-    // 4. Borramos la propiedad "nombres" original
     delete data.nombres;
 
     try {

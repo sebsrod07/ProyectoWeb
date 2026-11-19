@@ -52,18 +52,21 @@ async function cargarVehiculos() {
             card.className = "vehiculo-card";
             
             card.innerHTML = `
-                <div class="placa">${vehiculo.placas}</div>
-                <p><strong>Descripción:</strong> ${vehiculo.descripcion}</p>
-                <p><strong>Tipo:</strong> ${vehiculo.tipo}</p>
-                <p><strong>No. Serie:</strong> ${vehiculo.numeroSerie}</p>
-                <hr>
-                <p><small>Propietario: ${vehiculo.nombreCompleto}</small></p>
-                <button class="btn-solicitar">Solicitar Salida</button>
-                <p class="status-salida" role="status" style="font-weight: bold;"></p>
-                <div class="codigo-salida"></div>
-            `;
-            
-            const btnSolicitar = card.querySelector(".btn-solicitar");
+    <div class="placa">${vehiculo.placas}</div>
+    <p><strong>Descripción:</strong> ${vehiculo.descripcion}</p>
+    <p><strong>Tipo:</strong> ${vehiculo.tipo}</p>
+    <p><strong>No. Serie:</strong> ${vehiculo.numeroSerie}</p>
+    <hr>
+    <p><small>Propietario: ${vehiculo.nombreCompleto}</small></p>
+    <button type="button" class="btn-cyber">
+        Solicitar Salida
+        <span class="btn-cyber-border"></span>
+    </button>
+    <p class="status-salida" role="status" style="font-weight: bold;"></p>
+    <div class="codigo-salida"></div>
+`;
+
+const btnSolicitar = card.querySelector(".btn-cyber");
             const divSalida = card.querySelector(".codigo-salida");
             const statusSalida = card.querySelector(".status-salida");
 
@@ -105,4 +108,8 @@ async function cargarVehiculos() {
     } catch (err) {
         estado.textContent = "Error de conexión: " + err.message;
     }
+}
+function redirectRegistrarV()
+{
+    window.location.replace("regVehiculo.html");
 }

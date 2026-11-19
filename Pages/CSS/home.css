@@ -32,6 +32,7 @@ body {
 {
     
     display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;
+    align-items: flex-start;
 }
 /* 1. Limpiamos el body para que no haya espacios en blanco en las orillas */
 /* 2. El contenedor ahora ocupa toda la pantalla */
@@ -128,7 +129,7 @@ body {
 
     /**/
     /* From Uiverse.io by TaniaDou */ 
-.btn-solicitar {
+.btn-cyber {
   padding: 1rem 2rem;
   border-radius: 0.5rem;
   border: none;
@@ -138,13 +139,21 @@ body {
   text-align: center;
   position: relative;
   cursor: pointer;
-  isolation: isolate; 
-  /* 2. Fondo oscuro base para que el brillo cian y el texto claro contrasten */
-  background-color: #041d36; 
+  isolation: isolate;
+  background-color: #041d36;
   overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-.btn-solicitar::before {
+.btn-sidebar {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.btn-cyber::before {
   content: "";
   display: block;
   position: absolute;
@@ -163,7 +172,7 @@ body {
   z-index: -1;
 }
 
-.btn-solicitar::after {
+.btn-cyber::after {
   content: "";
   display: block;
   position: absolute;
@@ -184,11 +193,11 @@ body {
   transition: all 0.3s ease-in;
 }
 
-.btn-solicitar:hover::after {
+.btn-cyber:hover::after {
   opacity: 1;
 }
 
-.btn-solicitar-border {
+.btn-cyber-border {
   position: absolute;
   top: 0;
   left: 0;
@@ -198,7 +207,7 @@ body {
   z-index: -1;
 }
 
-.btn-solicitar-border::before {
+.btn-cyber-border::before {
   content: "";
   position: absolute;
   border-radius: 0.5rem;
@@ -212,5 +221,6 @@ body {
     linear-gradient(0deg, rgba(184, 238, 255, 0.32), rgba(184, 238, 255, 0.32));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
+  mask-composite: exclude;
   pointer-events: none;
 }

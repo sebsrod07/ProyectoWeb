@@ -41,6 +41,10 @@ public class registroController:ControllerBase
                     @mApellido = {registro.AMaterno},
                     @rfc = {registro.rfc}
             ");
+            var user = await userManager.FindByEmailAsync(registro.email);
+            if(user is null)
+                throw new Exception("Algo Salió Mal");
+            var response=await userManager.AddToRoleAsync(user,"usuario");
             return Ok("Usuario Creado Correctamente");
         }
         catch(Exception ex)
@@ -50,5 +54,41 @@ public class registroController:ControllerBase
             return BadRequest(msj);
             
         }
+    }
+    [HttpPost("/api/registerTrabajador")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="Admin")]
+    public async Task<IActionResult> registrarCorreoGestion([FromBody] RegistroDTO registro, string rol)
+    {
+        try
+        {   
+            var nuevoId = Guid.NewGuid().ToString();
+            var usuarioTemp = new IdentityUser { Id = nuevoId, UserName = registro.email, Email = registro.email };
+            var passwordHash = userManager.PasswordHasher.HashPassword(usuarioTemp, registro.password);
+            await db.Database.ExecuteSqlInterpolatedAsync($@"
+                EXEC dbo.crearUsuarioGestion
+                    @id = {nuevoId}, 
+                    @mail = {registro.email}, 
+                    @hashpass = {passwordHash},
+                    @curp = {registro.curp},
+                    @pNombre = {registro.primerNombre},
+                    @sNombre = {registro.segundoNombre},
+                    @pApellido = {registro.APaterno},
+                    @mApellido = {registro.AMaterno},
+                    @rfc = {registro.rfc}
+            ");
+            var user = await userManager.FindByEmailAsync(registro.email);
+            if(user is null)
+                throw new Exception("Algo Salió Mal");
+            var response=await userManager.AddToRoleAsync(user,rol);
+            return Ok("Usuario Creado Correctamente");
+        }
+        catch(Exception ex)
+        {
+            string msj=ex.Message;
+            msj=ex.InnerException!=null?ex.InnerException.Message:ex.Message;
+            return BadRequest(msj);
+            
+        }
+        
     }
 }

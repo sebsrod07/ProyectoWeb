@@ -1,6 +1,9 @@
 body{
     font-family: Rockwell, "Courier New", serif;
-    background-color: #003366;
+    background: #020024;
+    background: linear-gradient(135deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -80,10 +83,26 @@ button[type="submit"] {
     margin-top: 0.5rem;
 }
 
+button[type="button"]:hover {
+    background-color: #1d4ed8;
+}
+button[type="button"] {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 0.5rem;
+}
+
 button[type="submit"]:hover {
     background-color: #1d4ed8;
 }
-
 /* Mensaje de estado (éxito/error) */
 #mensaje {
     text-align: center;
