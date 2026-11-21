@@ -1,12 +1,53 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ESCOMotos</title>
-  <link rel="stylesheet" href="../CSS/auth.css" />
-</head>
-<body>
-  <p>SEGURIDAD</p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seguridad - ESCOMotos</title>
+    <link rel="stylesheet" href="../CSS/home.css" />
+  </head>
+  <body>
+    <div class="layout-principal">
+      <div class="contenido-principal">
+        <h1>Panel de Seguridad</h1>
+        
+        <div class="panel-card" style="max-width: 600px; text-align: center;">
+          <h2 style="color: #041d36; margin-top: 0;">Control de Caseta y Vigilancia</h2>
+          <p style="color: #4b5563; font-size: 1.05rem; line-height: 1.6;">
+            Accede al validador para comprobar los códigos de acceso para el ingreso y salida de vehículos del estacionamiento.
+          </p>
+          <div style="margin-top: 2rem;">
+            <button type="button" class="btn-cyber" onclick="window.location.href='check.html'">
+              Ir a Validador de Acceso
+              <span class="btn-cyber-border"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="sidebar-derecho">
+        <h2>OPCIONES</h2>
+        <button type="button" class="btn-cyber btn-sidebar" onclick="window.location.href='check.html'">
+          Validar Acceso
+          <span class="btn-cyber-border"></span>
+        </button>
+        <button type="button" class="btn-cyber btn-sidebar" id="btnCerrarSesion">
+          Cerrar Sesión
+          <span class="btn-cyber-border"></span>
+        </button>
+      </aside>
+    </div>
+
+    <script>
+      document.getElementById("btnCerrarSesion").addEventListener("click", async () => {
+        try {
+          await fetch("/api/logout", { method: "POST", credentials: "include" });
+        } catch (err) {
+          console.error("Error al salir", err);
+        } finally {
+          window.location.href = "login.html";
+        }
+      });
+    </script>
+  </body>
 </html>

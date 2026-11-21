@@ -3,10 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ESCOMotos</title>
-  <link rel="stylesheet" href="../CSS/auth.css" />
+  <title>Gestión Escolar - ESCOMotos</title>
+  <link rel="stylesheet" href="../CSS/home.css" />
 </head>
 <body>
-  <p>GESTION</p>
+  <div class="layout-principal">
+    <div class="contenido-principal">
+      <h1>Panel de Gestión Vehicular</h1>
+
+      <!-- Barra de Filtros y Búsqueda -->
+      <div class="buscador-container">
+        <input 
+          type="text" 
+          id="inputFiltro" 
+          class="buscador-input" 
+          placeholder="Buscar por placa, modelo, tipo o propietario..." 
+        />
+        <button type="button" class="btn-cyber" id="btnRecargar">
+          Actualizar Lista
+          <span class="btn-cyber-border"></span>
+        </button>
+      </div>
+
+      <p id="mensajeGlobal" style="font-weight: 600; text-align: center; display: none; padding: 12px; border-radius: 8px; margin-bottom: 20px;"></p>
+
+      <!-- SECCIÓN 1: Vehículos Dados de Baja / Pendientes (DAR DE ALTA) -->
+      <section class="seccion-gestion" id="seccionBajas">
+        <h2>
+          Vehículos Dados de Baja / Pendientes
+          <span id="contadorBajas" class="badge-estatus badge-baja">0</span>
+        </h2>
+        <p class="subtitulo-seccion">
+          Vehículos registrados que se encuentran dados de baja o en espera de validación de documentos. Presione "Dar de Alta" para autorizar su acceso.
+        </p>
+        <div id="gridVehiculosBaja" class="vehiculos-grid">
+          <p id="estadoCargaBajas" style="color: #ffffff; text-align: center; width: 100%; font-size: 1.1rem;">Cargando vehículos dados de baja...</p>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: Vehículos Activos (DAR DE BAJA) -->
+      <section class="seccion-gestion" id="seccionAltas">
+        <h2>
+          Vehículos Activos (Dados de Alta)
+          <span id="contadorAltas" class="badge-estatus badge-alta">0</span>
+        </h2>
+        <p class="subtitulo-seccion">
+          Vehículos con permiso de acceso vigente. Presione "Dar de Baja" para revocar su autorización y enviarlo a la sección de dados de baja.
+        </p>
+        <div id="gridVehiculosAlta" class="vehiculos-grid">
+          <p id="estadoCargaAltas" style="color: #ffffff; text-align: center; width: 100%; font-size: 1.1rem;">Cargando vehículos activos...</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SIDEBAR DERECHO (ESTILO OPERA CONSERVADO) -->
+    <aside class="sidebar-derecho">
+      <h2>OPCIONES</h2>
+      <button type="button" class="btn-cyber btn-sidebar" id="btnActualizarSidebar">
+        Refrescar Lista
+        <span class="btn-cyber-border"></span>
+      </button>
+      <button type="button" class="btn-cyber btn-sidebar" onclick="document.getElementById('seccionBajas').scrollIntoView({behavior: 'smooth'})">
+        Ver Dados de Baja
+        <span class="btn-cyber-border"></span>
+      </button>
+      <button type="button" class="btn-cyber btn-sidebar" onclick="document.getElementById('seccionAltas').scrollIntoView({behavior: 'smooth'})">
+        Ver Dados de Alta
+        <span class="btn-cyber-border"></span>
+      </button>
+      <button type="button" class="btn-cyber btn-sidebar" id="btnCerrarSesion">
+        Cerrar Sesión
+        <span class="btn-cyber-border"></span>
+      </button>
+    </aside>
+  </div>
+
+  <script src="../JS/HomeGestion.js"></script>
 </body>
 </html>

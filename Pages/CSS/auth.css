@@ -1,112 +1,263 @@
-/* Reseteo básico y fondo */
+/* ==========================================
+   ESCOMotos - Estilos de Autenticación y Formularios
+   ========================================== */
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background : #020024;
-    background: linear-gradient(135deg,rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    background: #020024;
+    background: linear-gradient(135deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-}
-
-/* Tarjeta contenedora del formulario */
-.auth-container {
-    background-color: #ffffff;
-    padding: 2.5rem 2rem;
-    border-radius: 50px;
-    box-shadow: 0 4px 10px rgb(50, 179, 230);
-    width: 100%;
-    max-width: 450px;
+    padding: 20px;
     box-sizing: border-box;
 }
 
-.auth-container h1 {
+/* Tarjeta contenedora del formulario */
+.auth-container,
+.registroContainer {
+    background-color: #ffffff;
+    padding: 2.5rem 2.2rem;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 25px rgba(0, 212, 255, 0.3);
+    width: 100%;
+    max-width: 480px;
+    box-sizing: border-box;
+}
+
+.auth-container h1,
+.registroContainer h1 {
     text-align: center;
-    color: #1f2937;
-    font-size: 2em;
+    color: #041d36;
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.auth-container h2,
+.registroContainer h2 {
+    text-align: center;
+    color: #4b5563;
+    font-size: 1.25rem;
+    font-weight: 500;
     margin-top: 0;
     margin-bottom: 1.5rem;
 }
 
-/* Espaciado de los párrafos que envuelven los inputs en tu HTML */
 form p {
-    margin: 0 0 1.5rem;
+    margin: 0 0 1.25rem;
 }
 
 label {
-    display:inline-block;
-    margin-bottom: 0.1rem;
-    font-weight: 500;
-    color: #4b5563;
-    font-size: .97rem;
+    display: inline-block;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95rem;
 }
 
-/* Estilos compartidos para todos los campos de texto */
+/* Campos de entrada */
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+textarea {
     width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #0663ee;
-    border-radius: 6px;
+    padding: 0.7rem 0.85rem;
+    border: 1.5px solid #00d4ff;
+    border-radius: 8px;
     font-size: 1rem;
+    font-family: inherit;
     box-sizing: border-box;
     transition: border-color 0.2s, box-shadow 0.2s;
-}
-input::placeholder {
-  color: #6b6464; /* Cambia al color que prefieras (ej. rojo) */
-  opacity: 0.5;    /* Necesario en algunos navegadores como Firefox para que no se muestre transparente */
+    background-color: #fafafa;
 }
 
+/* Selector estilo Cyber / Glassmorphism */
+select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    padding-right: 2.5rem;
+    border: 1.5px solid rgba(0, 212, 255, 0.6);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 500;
+    color: #ffffff;
+    background-color: #041d36;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300d4ff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 1rem) center;
+    background-size: 14px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    box-shadow: inset 0 0 10px rgba(151, 200, 255, 0.15), 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
 
-/* Efecto al hacer clic en un input */
-input:focus {
+select:hover {
+    border-color: rgba(0, 212, 255, 0.9);
+    box-shadow: 0 0 12px rgba(0, 212, 255, 0.4), inset 0 0 10px rgba(151, 200, 255, 0.25);
+}
+
+select:focus {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    border-color: #00d4ff;
+    background-color: #06284a;
+    box-shadow: 0 0 18px rgba(0, 212, 255, 0.6), inset 0 0 12px rgba(151, 200, 255, 0.3);
 }
 
-/* Botón principal */
-button[type="submit"] {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    margin-top: 0.5rem;
+select option {
+    background-color: #041d36;
+    color: #ffffff;
+    padding: 10px;
 }
 
-button[type="submit"]:hover {
-    background-color: #1d4ed8;
+input::placeholder,
+textarea::placeholder {
+    color: #9ca3af;
+    opacity: 1;
 }
-button[type="button"]
-{
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 6px;
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #090979;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.3);
+}
+
+/* Botones con formato Cyber / Azul-Aqua */
+button,
+.btn-cyber {
+    padding: 0.85rem 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 212, 255, 0.4);
     font-size: 1rem;
+    font-family: inherit;
     font-weight: 600;
+    color: #f4f0ff;
+    text-align: center;
+    position: relative;
     cursor: pointer;
-    transition: background-color 0.2s;
+    isolation: isolate;
+    background-color: #041d36;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
     margin-top: 0.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
-button[type="button"]:hover {
-    background-color: #1d4ed8;
+
+button::before,
+.btn-cyber::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    background: linear-gradient(
+        180deg,
+        rgba(8, 77, 126, 0) 0%,
+        rgba(8, 77, 126, 0.42) 100%
+    ),
+    rgba(47, 255, 255, 0.24);
+    box-shadow: inset 0 0 12px rgba(151, 200, 255, 0.44);
+    z-index: -1;
+    pointer-events: none;
+}
+
+button::after,
+.btn-cyber::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        rgba(8, 77, 126, 0) 0%,
+        rgba(8, 77, 126, 0.55) 100%
+    ),
+    rgba(47, 255, 255, 0.35);
+    box-shadow: inset 0 0 14px rgba(151, 200, 255, 0.6);
+    border-radius: inherit;
+    opacity: 0;
+    z-index: -1;
+    transition: all 0.3s ease-in;
+    pointer-events: none;
+}
+
+button:hover::after,
+.btn-cyber:hover::after {
+    opacity: 1;
+}
+
+button:hover,
+.btn-cyber:hover {
+    border-color: rgba(0, 212, 255, 0.85);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.5), inset 0 0 12px rgba(151, 200, 255, 0.4);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+button:active,
+.btn-cyber:active {
+    transform: translateY(0);
+}
+
+.btn-cyber-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.btn-cyber-border::before {
+    content: "";
+    position: absolute;
+    border-radius: inherit;
+    padding: 1px;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(184, 238, 255, 0.3) 0%,
+        rgba(184, 238, 255, 0) 100%
+    ),
+    linear-gradient(0deg, rgba(184, 238, 255, 0.35), rgba(184, 238, 255, 0.35));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
 }
 
 #mensaje {
     text-align: center;
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    color: #020202;
-    font-weight: 500;
+    margin-top: 1.25rem;
+    font-size: 0.95rem;
+    color: #041d36;
+    font-weight: 600;
+    white-space: pre-line;
 }

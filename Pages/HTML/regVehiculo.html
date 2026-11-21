@@ -2,49 +2,62 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Registrar Vehículo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar Vehículo - ESCOMotos</title>
   <link rel="stylesheet" href="../CSS/regV.css"/>
 </head>
 <body>
   <div class="registroContainer">
-    <h1>Registrar Nuevo Vehículo</h1>
+    <h1>ESCOMotos</h1>
+    <h2>Registrar Nuevo Vehículo</h2>
   
-  <form id="formVehiculo">
-    <p>
-      <label for="PlacaVehiculo">Placa:</label><br>
-      <input type="text" id="PlacaVehiculo" name="PlacaVehiculo" required>
-    </p>
-    <p>
-      <label for="ColorVehiculo">Color:</label><br>
-      <input type="text" id="ColorVehiculo" name="ColorVehiculo" required>
-    </p>
-    <p>
-      <label for="ModeloVehiculo">Modelo:</label><br>
-      <input type="text" id="ModeloVehiculo" name="ModeloVehiculo" required>
-    </p>
-    <p>
-      <label for="FabricanteVehiculo">Fabricante (Marca):</label><br>
-      <input type="text" id="FabricanteVehiculo" name="FabricanteVehiculo" required>
-    </p>
-    <p>
-      <label for="TipoVehiculo">Tipo de Vehículo:</label><br>
-      <input type="text" id="TipoVehiculo" name="TipoVehiculo" required>
-    </p>
-    <p>
-      <label for="NumeroSerieVehiculo">Número de Serie (VIN):</label><br>
-      <input type="text" id="NumeroSerieVehiculo" name="NumeroSerieVehiculo" required>
-    </p>
-    <p>
-      <button type="submit">Guardar Vehículo</button>
-    </p>
-    <p>
-      <button type="button" onclick="window.location.replace('home.html')">Regresar al Inicio</button>
-    </p>
-  </form>
+    <form id="formVehiculo">
+      <p>
+        <label for="PlacaVehiculo">Placa:</label><br>
+        <input type="text" id="PlacaVehiculo" name="PlacaVehiculo" placeholder="Ej: ABC-1234" required>
+      </p>
+      <p>
+        <label for="ColorVehiculo">Color:</label><br>
+        <input type="text" id="ColorVehiculo" name="ColorVehiculo" placeholder="Ej: Negro" required>
+      </p>
+      <p>
+        <label for="ModeloVehiculo">Modelo:</label><br>
+        <input type="text" id="ModeloVehiculo" name="ModeloVehiculo" placeholder="Ej: 2022" required>
+      </p>
+      <p>
+        <label for="FabricanteVehiculo">Fabricante (Marca):</label><br>
+        <input type="text" id="FabricanteVehiculo" name="FabricanteVehiculo" placeholder="Ej: Italika, Yamaha..." required>
+      </p>
+      <p>
+        <label for="TipoVehiculo">Tipo de Vehículo:</label><br>
+        <select id="TipoVehiculo" name="TipoVehiculo" required>
+          <option value="" disabled selected>Selecciona un tipo...</option>
+          <option value="SEDAN">SEDAN</option>
+          <option value="PICKUP">PICKUP</option>
+          <option value="MOTOCICLETA">MOTOCICLETA</option>
+          <option value="SUV">SUV</option>
+        </select>
+      </p>
+      <p>
+        <label for="NumeroSerieVehiculo">Número de Serie (VIN):</label><br>
+        <input type="text" id="NumeroSerieVehiculo" name="NumeroSerieVehiculo" placeholder="17 caracteres alfanuméricos" required>
+      </p>
+      <p>
+        <button type="submit" class="btn-cyber">
+          Guardar Vehículo
+          <span class="btn-cyber-border"></span>
+        </button>
+      </p>
+      <p>
+        <button type="button" class="btn-cyber" onclick="window.location.replace('Home.html')">
+          Regresar al Inicio
+          <span class="btn-cyber-border"></span>
+        </button>
+      </p>
+    </form>
 
-  <p id="mensaje"></p>
+    <p id="mensaje"></p>
   </div>
-  
 
   <script src="../JS/reVehiculo.js"></script>
 </body>

@@ -43,7 +43,7 @@ async function cargarVehiculos() {
         estado.style.display = "none"; 
 
         if (vehiculos.length === 0) {
-            contenedor.innerHTML = "<p>No tienes vehículos registrados actualmente.</p>";
+            contenedor.innerHTML = "<p style='color: #ffffff; font-size: 1.15rem; text-align: center; width: 100%;'>No tienes vehículos registrados actualmente.</p>";
             return;
         }
 
@@ -66,12 +66,13 @@ async function cargarVehiculos() {
     <div class="codigo-salida"></div>
 `;
 
-const btnSolicitar = card.querySelector(".btn-cyber");
+            const btnSolicitar = card.querySelector(".btn-cyber");
             const divSalida = card.querySelector(".codigo-salida");
             const statusSalida = card.querySelector(".status-salida");
 
             btnSolicitar.addEventListener("click", async () => {
                 statusSalida.textContent = "Enviando Solicitud...";
+                statusSalida.style.color = "#00d4ff";
                 divSalida.innerHTML = ""; // Limpiamos si había un código anterior
                 
                 try {
@@ -86,19 +87,20 @@ const btnSolicitar = card.querySelector(".btn-cyber");
                     if (!peticionRes.ok) {
                         const errText = await peticionRes.text();
                         statusSalida.textContent = errText || "No se pudo solicitar acceso.";
+                        statusSalida.style.color = "#f87171";
                         return;
                     }
 
                     const data = await peticionRes.json();
                     
                     statusSalida.textContent = "¡Código generado correctamente!";
-                    statusSalida.style.color = "green";
+                    statusSalida.style.color = "#4ade80";
                     
-                    divSalida.innerHTML = `<p style="word-wrap: break-word; font-size: 0.9em; background: #f4f4f4; padding: 10px; border-radius: 5px;">${data.codigoSeguro}</p>`;
+                    divSalida.innerHTML = `<p style="word-wrap: break-word; font-size: 0.9em; background: rgba(0, 212, 255, 0.15); color: #ffffff; padding: 10px; border-radius: 6px; border: 1px solid rgba(0, 212, 255, 0.35);">${data.codigoSeguro}</p>`;
                     
                 } catch(err) {
                     statusSalida.textContent = "Error de red: " + err.message;
-                    statusSalida.style.color = "red";
+                    statusSalida.style.color = "#f87171";
                 }
             });
             
@@ -107,6 +109,7 @@ const btnSolicitar = card.querySelector(".btn-cyber");
         
     } catch (err) {
         estado.textContent = "Error de conexión: " + err.message;
+        estado.style.color = "#f87171";
     }
 }
 function redirectRegistrarV()
